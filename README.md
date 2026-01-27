@@ -1,5 +1,5 @@
 # Infrastructure SI
-![Diagram de topology](Projet_SI/diagrams/Infra.png)
+![Diagram de topology](diagrams/Infra.png)
 
 ## Compétences exploité durant ce projet 
 1. Administrer et sécuriser une infrastructure réseau et système
