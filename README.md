@@ -1,101 +1,89 @@
-#Projet 4
+# Projet 4 – Infrastructure réseau et système multi-services
 
-## Topology du projet 
+## Objectif du projet
+Ce projet a pour objectif de concevoir, déployer et administrer une infrastructure réseau et système complète dans un environnement de test proche d’un contexte professionnel.  
+Il met en œuvre des services réseau, systèmes et applicatifs, tout en intégrant des mécanismes de sécurité, de supervision et d’administration à distance.
 
+---
 
-![Diagram de topologie réseau](Diagram/img.png)
+## Architecture de l’infrastructure
+L’infrastructure repose sur un environnement virtualisé intégrant les éléments suivants :
 
+- un routeur pare-feu pfSense assurant la gestion des flux réseau (WAN / LAN, DHCP)
+- un serveur Linux NethServer 7.9
+- un poste client Windows virtualisé
+- plusieurs services systèmes et applicatifs internes
 
-Énoncé du projet
+Schéma de la topologie réseau :
 
-Dans ce projet, j’ai mis en place une infrastructure réseau et système complète destinée à un environnement de test.
+![Diagramme de la topologie réseau](Diagram/img.png)
 
-J’ai réalisé :
+Cette architecture permet de disposer d’une infrastructure fonctionnelle, sécurisée et administrable, adaptée à un environnement professionnel.
 
-la conception de l’architecture réseau,
+---
 
-le déploiement d’un serveur sous NethServer,
+## Mise en œuvre technique
 
-la configuration d’un routeur pfSense,
+### Réseau et sécurité
+Le réseau est structuré autour d’un routeur pfSense configuré pour :
+- la séparation des réseaux WAN et LAN
+- l’attribution des adresses IP via DHCP
+- le filtrage des flux réseau
+- l’accès sécurisé à Internet
 
-l’installation d’un poste client Windows virtuel,
+Un plan d’adressage IP cohérent est défini afin d’assurer la stabilité et la lisibilité de l’infrastructure.
 
-l’administration du serveur à distance via SSH (PuTTY),
+### Systèmes et administration
+Un serveur NethServer 7.9 est installé et configuré afin de fournir des services systèmes et applicatifs.  
+L’administration du serveur est réalisée à distance via SSH (PuTTY), permettant une gestion sécurisée et efficace.
 
-la mise en place de services réseaux et systèmes (Active Directory, MariaDB, GLPI, Nextcloud, Zabbix).
+Un poste client Windows est déployé afin de tester l’accès aux services et de valider le bon fonctionnement de l’infrastructure.
 
-L’ensemble de l’infrastructure est fonctionnel, sécurisé et administrable, conformément aux besoins d’un environnement professionnel.
+### Services d’infrastructure et applicatifs
+Les services suivants sont installés et configurés :
 
-Compétences travaillées
+- Active Directory pour la gestion des utilisateurs et des droits
+- MariaDB pour la gestion des bases de données
+- GLPI pour la gestion de parc informatique
+- Nextcloud pour le partage et la collaboration
+- un serveur Web
+- Zabbix pour la supervision de l’infrastructure
 
-(Référentiel BTS SIO – Option SISR)
+Ces services permettent de couvrir les besoins essentiels d’un système d’information d’entreprise.
 
-Administrer les réseaux et les systèmes
+### Supervision et exploitation
+La solution de supervision Zabbix est mise en place afin de :
+- surveiller l’état des équipements et des services
+- vérifier la disponibilité des ressources
+- identifier et corriger les dysfonctionnements réseau ou système
 
-Installer et configurer un serveur Linux (NethServer 7.9)
+Cette supervision contribue à garantir la fiabilité et la continuité de service de l’infrastructure.
 
-Mettre en place un routeur pare-feu pfSense (WAN, LAN, DHCP)
+---
 
-Définir et appliquer un plan d’adressage IP
+## Compétences mobilisées (BTS SIO – Option SISR)
 
-Assurer la connectivité réseau et l’accès Internet
+- Administrer et sécuriser des réseaux et des systèmes  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-Tester et valider le bon fonctionnement du réseau
+- Installer, configurer et exploiter des serveurs Linux et Windows  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-Exploiter, dépanner et superviser une infrastructure
+- Mettre en place et administrer des services d’infrastructure et applicatifs  
+  (Bloc 1 : Support et mise à disposition de services informatiques)
 
-Administrer un serveur à distance via SSH
+- Déployer et exploiter une solution de supervision  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-Installer et gérer des services systèmes et applicatifs
+- Virtualiser et déployer une infrastructure multi-machines cohérente  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-Mettre en place une solution de supervision (Zabbix)
+- Produire une documentation technique structurée et exploitable  
+  (Bloc 1 : Support et mise à disposition de services informatiques)
 
-Identifier et corriger des dysfonctionnements réseau ou système
+Ce projet démontre la capacité à concevoir, déployer, sécuriser et exploiter une infrastructure réseau et système complète, en respectant les bonnes pratiques professionnelles et les attendus du BTS SIO option SISR.
 
-Vérifier l’état et la disponibilité des services
+---
 
-Gérer les services d’infrastructure
-
-Installer et configurer un contrôleur de domaine Active Directory
-
-Gérer les utilisateurs et les droits
-
-Installer et sécuriser un serveur de base de données MariaDB
-
-Déployer des services métiers :
-
-GLPI
-
-Nextcloud
-
-Serveur Web
-
-Sécuriser une infrastructure informatique
-
-Configurer des règles de pare-feu adaptées
-
-Limiter les ports ouverts aux services nécessaires
-
-Sécuriser les accès administrateur
-
-Appliquer les bonnes pratiques de sécurité système
-
-Virtualiser et déployer des environnements
-
-Créer et configurer des machines virtuelles
-
-Gérer les interfaces réseau virtuelles
-
-Déployer une infrastructure multi-machines cohérente
-
-Adapter les ressources système aux besoins
-
-Produire une documentation technique
-
-Rédiger une documentation technique structurée
-
-Décrire des procédures reproductibles
-
-Formaliser une architecture réseau et système
-
-Présenter un projet de manière claire et professionnelle
+Rafael GAVERIAUX PEREIRA  
+BTS SIO – Option SISR
