@@ -1,111 +1,78 @@
-# CISCO CT
+# CISCO CT – Architecture réseau d’entreprise
 
-## Diagram Topology
+## Objectif du projet
+Ce projet a pour objectif de concevoir et de mettre en œuvre une architecture réseau d’entreprise en utilisant des équipements Cisco.  
+Il vise à reproduire une infrastructure réaliste intégrant des postes clients, des serveurs internes et un accès à Internet, tout en respectant les bonnes pratiques de conception et d’exploitation des réseaux informatiques.
 
-![Diagram de topology](topology-1/diagrams/topology.png)
+---
 
-## Compétences exploités
+## Structure du projet
+Le projet est organisé de manière cohérente afin de faciliter la compréhension, la maintenance et l’exploitation de l’infrastructure :
 
-1. Concevoir une architecture réseau structurée
-Compétence travaillée
+- `docs/diagrams/` : schémas de la topologie réseau
+- `topology/routers/` : configurations des routeurs
+- `topology/switch/` : configurations des commutateurs
+- `scripts/` : scripts d’initialisation et d’automatisation
 
-Analyser un besoin et concevoir une topologie réseau adaptée.
+Chaque dossier correspond à un rôle précis au sein de l’architecture réseau.
 
-Mise en œuvre
+---
 
-Conception d’une architecture hiérarchisée intégrant :
+## Architecture réseau
+L’architecture repose sur une organisation hiérarchisée du réseau comprenant :
 
-routeur d’accès
+- un routeur assurant l’accès à Internet
+- un équipement de niveau 3 pour le routage interne
+- des commutateurs pour la distribution du réseau
+- des postes clients et des serveurs internes
 
-équipement de niveau 3
+Schéma de la topologie réseau :
 
-infrastructure de distribution
+![Diagramme de la topologie réseau](docs/diagrams/topology.png)
 
-postes clients
+Cette organisation permet une séparation claire des rôles entre :
+- l’accès Internet
+- le réseau local
+- les services internes (DNS, DHCP, Web)
 
-serveurs internes
+---
 
-Séparation logique des rôles :
+## Mise en œuvre technique
 
-accès Internet
+### Interconnexion des équipements
+Les équipements réseau (routeurs et commutateurs) sont interconnectés afin d’assurer la circulation du trafic entre :
+- les postes clients
+- les serveurs internes
+- le réseau Internet
 
-réseau local
+Les liaisons sont configurées de manière cohérente afin de garantir la connectivité et la fiabilité des échanges au sein de l’infrastructure.
 
-services internes (DNS, DHCP, Web)
+### Services réseau
+Les services suivants sont déployés et exploités :
+- un service DHCP pour l’attribution automatique des adresses IP
+- un service DNS pour la résolution de noms
+- un serveur Web accessible depuis le réseau interne
 
-Organisation cohérente des équipements et des flux réseau
+Les postes clients sont configurés pour utiliser correctement ces services réseau.
 
-Compétence démontrée
+### Adressage IP et routage
+L’infrastructure est découpée en plusieurs sous-réseaux IP afin de structurer le réseau.  
+Le routage entre les différents réseaux est configuré pour permettre la communication interne ainsi que l’accès au réseau Internet.
 
-Capacité à concevoir un schéma réseau clair, logique et exploitable, répondant aux besoins d’un système d’information.
+---
 
-2. Mettre en œuvre l’interconnexion des équipements réseau
-Compétence travaillée
+## Compétences mobilisées (BTS SIO – Option SISR)
 
-Configurer et interconnecter des équipements réseau.
+- Concevoir une architecture réseau structurée et cohérente  
+  (Bloc 1 : Support et mise à disposition de services informatiques)
 
-Mise en œuvre
+- Interconnecter et configurer des équipements réseau  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-Interconnexion de :
+- Déployer et exploiter des services réseau essentiels (DNS, DHCP, Web)  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-routeurs
+- Mettre en œuvre l’adressage IP et le routage  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-équipements de niveau 3
-
-commutateurs
-
-Configuration des liaisons entre les équipements
-
-Acheminement du trafic entre :
-
-postes clients
-
-serveurs
-
-réseau Internet
-
-Vérification de la connectivité entre les différents éléments du réseau
-
-Compétence démontrée
-
-Capacité à assurer la communication entre plusieurs équipements réseau et à garantir le bon fonctionnement des flux.
-
-3. Mettre en place et exploiter les services réseau essentiels
-Compétence travaillée
-
-Déployer et utiliser des services réseau fondamentaux.
-
-Mise en œuvre
-
-Déploiement d’un serveur DHCP pour l’attribution automatique des adresses IP
-
-Mise en place d’un serveur DNS pour la résolution de noms
-
-Déploiement d’un serveur Web accessible depuis le réseau
-
-Configuration des postes clients pour l’utilisation des services réseau
-
-Compétence démontrée
-
-Capacité à déployer des services réseau essentiels et à en assurer l’exploitation dans une infrastructure d’entreprise.
-
-4. Mettre en œuvre l’adressage IP et le routage
-Compétence travaillée
-
-Configurer l’adressage IP et le routage des réseaux.
-
-Mise en œuvre
-
-Mise en place de plusieurs sous-réseaux IP
-
-Attribution d’adresses IP cohérentes aux équipements
-
-Configuration du routage entre les réseaux
-
-Accès au réseau Internet via un routeur
-
-Compétence démontrée
-
-Capacité à structurer un réseau IP, à configurer le routage et à permettre la communication entre différents réseaux.
-
-
+Ce projet démontre la capacité à concevoir, configurer et exploiter une infrastructure réseau répondant aux besoins d’un système d’information d’entreprise, conformément aux attendus du BTS SIO option SISR.
