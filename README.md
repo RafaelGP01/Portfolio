@@ -1,63 +1,73 @@
-# Présentation du projet 
+# Gestion de parc informatique – GLPI, virtualisation et conteneurisation
 
-Dans ce projet, j’ai mis en place une solution complète de gestion de parc informatique en utilisant la virtualisation et la conteneurisation. J’ai installé un serveur GLPI conteneurisé via Docker Compose sur un Mac Apple Silicon, en y associant une base de données MariaDB. J’ai ensuite créé deux machines virtuelles Ubuntu Server sous VMware Fusion, configurées en mode réseau pont afin qu’elles disposent d’adresses IP sur le réseau local. Sur ces machines, j’ai installé et configuré les agents GLPI afin de permettre la remontée automatique des informations d’inventaire vers le serveur. Enfin, j’ai vérifié le bon fonctionnement de l’ensemble en contrôlant l’apparition des machines dans l’interface GLPI, validant ainsi la communication réseau, le déploiement des services et l’exploitation de la solution de gestion de parc.
+## Objectif du projet
+Ce projet a pour objectif de mettre en œuvre une solution complète de gestion de parc informatique en combinant virtualisation et conteneurisation.  
+Il vise à déployer et exploiter l’outil GLPI afin d’automatiser l’inventaire matériel et logiciel de machines virtuelles, tout en validant la communication réseau entre les différents composants de l’infrastructure.
 
-## Compétences Exploités 
+---
 
-1. Administrer des systèmes virtualisés
+## Présentation de l’environnement
+L’environnement de travail repose sur les éléments suivants :
 
-Installation et configuration d’un environnement de virtualisation sur Mac Apple Silicon avec VMware Fusion
+- un hôte Mac Apple Silicon
+- VMware Fusion pour la virtualisation
+- Docker Desktop pour la conteneurisation
+- deux machines virtuelles Ubuntu Server (ARM64)
+- un serveur GLPI conteneurisé avec une base de données MariaDB
 
-Création et administration de machines virtuelles Linux (Ubuntu Server ARM64)
+Les machines virtuelles sont configurées en mode réseau pont (Bridged) afin d’obtenir des adresses IP sur le réseau local et de communiquer directement avec le serveur GLPI.
 
-Gestion des ressources (CPU, mémoire, réseau)
+---
 
-Mise à jour et maintenance des systèmes Linux
+## Mise en œuvre technique
 
-Compétence démontrée :
-Capacité à déployer et administrer des systèmes virtualisés dans un environnement hétérogène.
+### Virtualisation des systèmes
+Deux machines virtuelles Ubuntu Server sont créées et administrées sous VMware Fusion.  
+Elles sont configurées avec des ressources adaptées (CPU, mémoire, réseau) et maintenues à jour afin de garantir leur stabilité et leur sécurité.
 
-2. Déployer des services applicatifs avec la conteneurisation
+Ces machines constituent les postes inventoriés par la solution de gestion de parc.
 
-Installation et utilisation de Docker Desktop
+### Conteneurisation de l’application GLPI
+Le serveur GLPI est déployé sous forme de conteneurs à l’aide de Docker Compose.  
+L’architecture mise en place comprend :
+- un conteneur GLPI
+- un conteneur MariaDB pour la base de données
 
-Déploiement d’une application métier (GLPI) via Docker Compose
+Les volumes persistants sont configurés afin de conserver les données, et les ports nécessaires sont exposés pour permettre l’accès à l’interface web de GLPI.
 
-Mise en place d’une architecture multi-conteneurs :
+### Déploiement des agents GLPI
+Les agents GLPI sont installés et configurés sur les machines virtuelles Ubuntu Server.  
+Ils permettent la remontée automatique des informations d’inventaire matériel et logiciel vers le serveur GLPI.
 
-GLPI
+Le bon fonctionnement de la solution est validé par l’apparition des machines et de leurs caractéristiques dans l’interface GLPI.
 
-Base de données MariaDB
+### Configuration et exploitation du réseau
+Les machines virtuelles sont configurées en mode pont afin de garantir :
+- l’attribution correcte des adresses IP
+- la communication réseau entre le serveur GLPI et les agents
+- la bonne circulation des flux nécessaires à la remontée d’inventaire
 
-Gestion des volumes persistants et des réseaux Docker
+Des vérifications sont effectuées pour s’assurer du bon fonctionnement des échanges réseau.
 
-Accès au service via un port exposé
+---
 
-Compétence démontrée :
-Capacité à déployer et exploiter un service applicatif à l’aide de technologies de conteneurisation.
+## Compétences mobilisées (BTS SIO – Option SISR)
 
-3. Mettre en place et exploiter une solution de gestion de parc informatique
+- Administrer des systèmes virtualisés dans un environnement hétérogène  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-Installation et configuration de GLPI
+- Déployer et exploiter des services applicatifs à l’aide de la conteneurisation  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-Déploiement et configuration des agents GLPI sur des machines Linux
+- Mettre en œuvre une solution de gestion de parc informatique (GLPI)  
+  (Bloc 1 : Support et mise à disposition de services informatiques)
 
-Configuration de la remontée d’inventaire vers le serveur GLPI
+- Configurer et exploiter des services réseau permettant la communication entre systèmes  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-Vérification et exploitation des données d’inventaire matériel et logiciel
+Ce projet démontre la capacité à combiner virtualisation, conteneurisation et services réseau afin de déployer et exploiter une solution de gestion de parc informatique conforme aux attentes du BTS SIO option SISR.
 
-Compétence démontrée :
-Capacité à mettre en œuvre une solution de gestion de parc et à automatiser l’inventaire des équipements.
+---
 
-4. Administrer et configurer des services réseau
-
-Configuration réseau des machines virtuelles en mode pont (Bridged)
-
-Attribution et vérification des adresses IP
-
-Communication réseau entre le serveur GLPI et les agents
-
-Vérification du bon fonctionnement des flux réseau
-
-Compétence démontrée :
-Capacité à configurer un environnement réseau fonctionnel permettant la communication entre services et équipements.
+Rafael GAVERIAUX PEREIRA  
+BTS SIO – Option SISR
