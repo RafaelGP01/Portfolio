@@ -1,106 +1,91 @@
-# Infrastructure SI
-![Diagram de topology](diagrams/Infra.png)
+# Infrastructure SI – Environnement d’entreprise virtualisé
 
-## Compétences exploité durant ce projet 
-1. Administrer et sécuriser une infrastructure réseau et système
-Compétence travaillée
+## Objectif du projet
+Ce projet a pour objectif de concevoir, déployer et sécuriser une infrastructure de système d’information complète dans un contexte d’entreprise.  
+Il s’appuie sur un environnement virtualisé et met en œuvre des services réseau, systèmes et applicatifs essentiels, ainsi qu’un domaine Active Directory permettant la gestion centralisée des utilisateurs et des ressources.
 
-Installer, configurer et sécuriser des services réseau et systèmes.
+---
 
-Mise en œuvre dans le projet
+## Architecture de l’infrastructure
+L’infrastructure repose sur un environnement virtualisé sous VMware intégrant :
 
-Déploiement d’une infrastructure virtualisée sous VMware
+- un pare-feu et routeur pfSense assurant la séparation WAN / LAN, le routage, le filtrage et le service DHCP
+- un contrôleur de domaine Windows Server 2022
+- des postes clients Windows 11 intégrés au domaine
+- des services réseau et applicatifs internes
 
-Mise en place d’un pare-feu et routeur pfSense assurant :
+Schéma de l’infrastructure :
 
-la séparation WAN / LAN
+![Diagramme de l’infrastructure](docs/diagrams/Infra.png)
 
-le routage
+Un plan d’adressage IP cohérent est mis en place sur le réseau 192.168.20.0/24.
 
-le filtrage
+---
 
-le service DHCP
+## Mise en œuvre technique
 
-Conception et mise en œuvre d’un plan d’adressage IP cohérent (192.168.20.0/24)
+### Infrastructure réseau et sécurité
+L’infrastructure réseau est sécurisée par un pare-feu pfSense configuré pour assurer :
+- la séparation des flux WAN et LAN
+- le routage entre les réseaux
+- le filtrage des communications
+- la distribution automatique des adresses IP via DHCP
 
-Configuration des services réseau essentiels :
+La sécurisation des systèmes est renforcée par :
+- le pare-feu pfSense
+- le pare-feu Windows sur les serveurs et postes clients
+- un antivirus installé sur les postes utilisateurs
 
-DHCP
+### Domaine Active Directory
+Un domaine Active Directory est déployé afin de centraliser la gestion des identités et des accès :
 
-DNS interne
+- installation et configuration d’un contrôleur de domaine sous Windows Server 2022
+- création du domaine : `martinscie.lan`
+- mise en place d’unités d’organisation (OU)
+- création de groupes par rôle (PDG, Administrateurs, Secrétariat)
+- création et gestion des comptes utilisateurs
+- jonction des postes Windows 11 au domaine
 
-Sécurisation des accès :
+Cette organisation permet une gestion structurée et sécurisée des accès aux ressources.
 
-pare-feu pfSense
+### Services de partage et gestion du parc
+Des partages réseau sécurisés sont mis en place sur le serveur de domaine :
 
-pare-feu Windows
+- `\\DC01\Partage\PDG`
+- `\\DC01\Partage\Admin`
+- `\\DC01\Partage\Secrétaire`
 
-antivirus sur les postes clients
+Les droits d’accès sont configurés à l’aide des permissions NTFS, en appliquant le principe du moindre privilège.  
+Des tests d’accès sont réalisés à partir de différents comptes utilisateurs afin de valider la configuration.
 
-Compétence démontrée
+Une solution de gestion de parc informatique est également déployée :
+- GLPI
+- FusionInventory
 
-Capacité à concevoir, déployer et sécuriser une infrastructure réseau fonctionnelle répondant aux besoins d’une entreprise.
+Cette solution permet l’automatisation de l’inventaire matériel et logiciel des postes clients.
 
-2. Administrer un domaine Active Directory et les ressources associées
-Compétence travaillée
+---
 
-Gérer des identités, des groupes et des droits d’accès dans un environnement centralisé.
+## Compétences mobilisées (BTS SIO – Option SISR)
 
-Mise en œuvre dans le projet
+- Administrer et sécuriser une infrastructure réseau et système  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-Installation et configuration d’un contrôleur de domaine sous Windows Server 2022
+- Concevoir et déployer une infrastructure virtualisée  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-Création d’un domaine Active Directory : martinscie.lan
+- Administrer un domaine Active Directory et gérer les identités et les accès  
+  (Bloc 2 : Administration des systèmes et des réseaux)
 
-Mise en place :
+- Mettre en place des services de partage et appliquer une gestion fine des droits  
+  (Bloc 1 : Support et mise à disposition de services informatiques)
 
-d’unités d’organisation
+- Déployer une solution de gestion de parc informatique  
+  (Bloc 1 : Support et mise à disposition de services informatiques)
 
-de groupes par rôle (PDG, Administrateurs, Secrétariat)
+Ce projet démontre la capacité à concevoir, sécuriser et administrer une infrastructure de système d’information répondant aux besoins d’une entreprise, conformément aux attendus du BTS SIO option SISR.
 
-de comptes utilisateurs
+---
 
-Centralisation de l’authentification des utilisateurs
-
-Jonction des postes Windows 11 au domaine
-
-Compétence démontrée
-
-Capacité à administrer un annuaire Active Directory et à gérer les accès utilisateurs de manière structurée et sécurisée.
-
-3. Mettre en place des services de partage et de gestion de parc informatique
-Compétence travaillée
-
-Déployer des services applicatifs répondant aux besoins de l’entreprise.
-
-Mise en œuvre dans le projet
-
-Mise en place de partages réseau sécurisés sur le serveur :
-
-\\DC01\Partage\PDG
-
-\\DC01\Partage\Admin
-
-\\DC01\Partage\Secrétaire
-
-Gestion fine des droits d’accès :
-
-permissions NTFS
-
-application du principe du moindre privilège
-
-Réalisation de tests d’accès depuis différents comptes utilisateurs
-
-Déploiement d’une solution de gestion de parc informatique :
-
-GLPI
-
-FusionInventory
-
-Automatisation de l’inventaire matériel et logiciel des postes clients
-
-Compétence démontrée
-
-Capacité à fournir des services informatiques adaptés aux utilisateurs, à contrôler l’accès aux ressources et à assurer le suivi du parc informatique.
-
-Rafael GAVERIAUX PEREIRA BTS SIO option SISR
+Rafael GAVERIAUX PEREIRA  
+BTS SIO – Option SISR
