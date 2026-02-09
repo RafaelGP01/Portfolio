@@ -16,7 +16,7 @@ L’infrastructure repose sur un environnement virtualisé intégrant les élém
 
 Schéma de la topologie réseau :
 
-![Diagramme de la topologie réseau](docs/diagram/img.png)
+![Diagramme de la topologie réseau](docs/diagrams/infra.png)
 
 Cette architecture permet de disposer d’une infrastructure fonctionnelle, sécurisée et administrable, adaptée à un environnement professionnel.
 
