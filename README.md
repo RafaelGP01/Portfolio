@@ -35,6 +35,10 @@ L’architecture mise en place comprend :
 
 Les volumes persistants sont configurés afin de conserver les données, et les ports nécessaires sont exposés pour permettre l’accès à l’interface web de GLPI.
 
+### Interface GLPI
+
+![Interface GLPI](assets/glpi-dashboard.webp)
+
 ### Déploiement des agents GLPI
 Les agents GLPI sont installés et configurés sur les machines virtuelles Ubuntu Server.  
 Ils permettent la remontée automatique des informations d’inventaire matériel et logiciel vers le serveur GLPI.
