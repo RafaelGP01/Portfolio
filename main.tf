@@ -1,78 +1,82 @@
 provider "aws" {
-   region = var.aws_regions
+  region = var.aws_regions
 }
 
 
 data "aws_ami" "ubuntu" {
 
-    most_recent = true
+  most_recent = true
 
-    filter {
-      name = "name"
-      values =  [var.ubuntu_ami_name]
-    }
-     
-     owners = [var.ubuntu_ami_owner]
+  filter {
+    name   = "name"
+    values = [var.ubuntu_ami_name]
+  }
+
+  owners = [var.ubuntu_ami_owner]
 }
 
 
 resource "aws_security_group" "rafael_security_group" {
-    name = "rafael_security_group"
-    vpc_id = var.vpc_id  
+  name   = "rafael_security_group"
+  vpc_id = var.vpc_id
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_http" {
-    from_port = "80"
-    to_port = "80"
-    ip_protocol = "http"
-    cidr_ipv4 = "0.0.0.0/0"
-    security_group_id = aws_security_group.rafael_security_group.id
-  
+  from_port         = "80"
+  to_port           = "80"
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "0.0.0.0/0"
+  security_group_id = aws_security_group.rafael_security_group.id
+
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
-    from_port = "22"
-    to_port = "22"
-    ip_protocol = "tcp"
-    cidr_ipv4 = "0.0.0.0/0"
-    security_group_id = aws_security_group.rafael_security_group.id
-  
+  from_port         = "22"
+  to_port           = "22"
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "0.0.0.0/0"
+  security_group_id = aws_security_group.rafael_security_group.id
+
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_icmp" {
-    ip_protocol = "icmp"
-    cidr_ipv4 = "0.0.0.0/0"
-    security_group_id = aws_security_group.rafael_security_group.id
-  
+  from_port         = "-1"
+  to_port           = "-1"
+  ip_protocol       = "icmp"
+  cidr_ipv4         = "0.0.0.0/0"
+  security_group_id = aws_security_group.rafael_security_group.id
+
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_all" {
-    ip_protocol = "-1"
-    cidr_ipv4 = "0.0.0.0/0"
-    security_group_id = aws_security_group.rafael_security_group.id
+  ip_protocol       = "-1"
+  cidr_ipv4         = "0.0.0.0/0"
+  security_group_id = aws_security_group.rafael_security_group.id
 }
 
 resource "aws_subnet" "rafael_subnet" {
-    vpc_id = var.vpc_id
-    cidr_block = "172.31.16.0/24"
-  
+  vpc_id     = var.vpc_id
+  cidr_block = "172.31.16.0/24"
+
 }
 
 resource "aws_key_pair" "rafael_key_pair" {
-    key_name = "rafael_key"
-    public_key = var.my_key
-  }
+  key_name   = "rafael_key"
+  public_key = file("~/.ssh/terraform.pub")
+}
 
 resource "aws_instance" "rafael_instance" {
 
-    security_groups = [ aws_security_group.rafael_security_group.id ]
-    subnet_id = aws_subnet.rafael_subnet.id
-    associate_public_ip_address = true
-    ami = data.aws_ami.ubuntu.id
+  security_groups             = [aws_security_group.rafael_security_group.id]
+  subnet_id                   = aws_subnet.rafael_subnet.id
+  associate_public_ip_address = true
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = var.my_instance_type
+  key_name                    = aws_key_pair.rafael_key_pair.key_name
 
-    tags = {
-        name="rafael_instance"
-    }
+  tags = {
+    Name = "rafael_instance"
+  }
 
-  
+
 }

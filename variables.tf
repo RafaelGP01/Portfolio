@@ -1,6 +1,6 @@
 variable "ubuntu_ami_name" {
-    description = "this is the ami name I use for my EC2 instance"
-    default = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*" 
+  description = "this is the ami name I use for my EC2 instance"
+  default     = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"
 }
 
 variable "aws_regions" {
@@ -9,17 +9,18 @@ variable "aws_regions" {
 
 variable "ubuntu_ami_owner" {
 
-    default = "099720109477"  
+  default = "099720109477"
 }
 
 variable "vpc_id" {
-    default = "vpc-0ebcdb39f7a526ef9" 
+  default = "vpc-0ebcdb39f7a526ef9"
 }
 
 variable "vpc_ipdress" {
-    default = "172.31.0.0/16"
+  default = "172.31.0.0/16"
 }
 
-variable "my_key" {
-    default = file("~/.ssh/terraform.pub")
+variable "my_instance_type" {
+  default = "t2.micro"
+
 }

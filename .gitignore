@@ -3,3 +3,6 @@
 .DS_Store
 *.tfstate
 *.tfstate.*
+.terraform.lock*
+terraform.tfstate
+terraform.tfstate.backup
