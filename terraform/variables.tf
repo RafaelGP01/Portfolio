@@ -3,7 +3,7 @@ variable "ubuntu_ami_name" {
   default     = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"
 }
 
-variable "aws_regions" {
+variable "aws_region" {
   default = "eu-west-3"
 }
 

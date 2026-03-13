@@ -1,0 +1,7 @@
+---
+- name: HealthCheck
+  hosts: app
+  tasks:
+    - name: ping
+      ansible.builtin.ping:
+      
