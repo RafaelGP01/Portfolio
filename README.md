@@ -14,6 +14,11 @@ Le projet met l’accent sur l’automatisation du déploiement, la gestion d’
 
 ## Environnement technique
 
+<p align="center">
+  <img src="docs/diagrams/aws.png" width="180"/>
+  <img src="docs/diagrams/terraform.png" width="180"/>
+</p>
+
 L’environnement technique utilisé pour ce projet est le suivant :
 
 * Poste client : macOS (Apple Silicon)
