@@ -24,9 +24,10 @@ L’environnement technique utilisé pour ce projet est le suivant :
 * Accès distant : SSH
 * Versionnement : Git / GitHub
 
-![Technologies utilisées](docs/png/aws.png)
+![Plateforme Cloud](docs/png/aws.png)
 
-![Technologies utilisées](docs/png/terraform.png)
+![Outils de Configuration](docs/png/terraform.png)
+
 ---
 
 ## Mise en œuvre technique
