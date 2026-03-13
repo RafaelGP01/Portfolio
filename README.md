@@ -29,10 +29,10 @@ L’environnement technique utilisé pour ce projet est le suivant :
 * Accès distant : SSH
 * Versionnement : Git / GitHub
 
-![Plateforme Cloud](docs/png/aws.png)
-
-![Outils de Configuration](docs/png/terraform.png)
-
+<p align="center">
+  <img src="docs/png/aws.png" width="180"/>
+  <img src="docs/png/terraform.png" width="180"/>
+</p>
 ---
 
 ## Mise en œuvre technique
