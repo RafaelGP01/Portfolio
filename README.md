@@ -1,10 +1,3 @@
-Parfait, j’ai compris : **tu veux exactement la même structure que tes autres README**, juste adaptée au projet **Terraform + AWS + Ansible**.
-Je garde donc **les mêmes sections, le même style et la même logique**.
-
-Voici le README adapté à ton projet.
-
----
-
 # Déploiement automatisé d’une infrastructure AWS avec Terraform et Ansible
 
 ## Objectif du projet
