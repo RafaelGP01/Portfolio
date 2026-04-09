@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tableau de synthèse — Rafael GAVERIAUX</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5f7fa;
+      color: #1a1a2e;
+      padding: 40px 32px;
+    }
+
+    /* HEADER */
+    .header {
+      background: #1a1a2e;
+      color: white;
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 0.85rem;
+      color: #8b9dc3;
+    }
+
+    .header .badge-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+    }
+
+    .badge {
+      background: #1f6feb33;
+      border: 1px solid #1f6feb;
+      color: #79c0ff;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-green {
+      background: #23863633;
+      border-color: #238636;
+      color: #3fb950;
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #1f6feb;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #1f6feb;
+    }
+
+    /* IDENTITY TABLE */
+    .identity-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .identity-card {
+      background: white;
+      border: 1px solid #e1e8f0;
+      border-radius: 8px;
+      padding: 16px 20px;
+    }
+
+    .identity-card .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #8b949e;
+      margin-bottom: 6px;
+    }
+
+    .identity-card .value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    /* MAIN TABLE */
+    .table-wrap {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e1e8f0;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    .table-wrap .table-header {
+      background: #1a1a2e;
+      color: white;
+      padding: 14px 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: #f0f4f8;
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #5a6a7e;
+      border-bottom: 2px solid #e1e8f0;
+    }
+
+    td {
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: #2d3748;
+      border-bottom: 1px solid #f0f4f8;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+
+    td.col-num {
+      font-weight: 700;
+      color: #1f6feb;
+      text-align: center;
+      width: 40px;
+    }
+
+    td.col-title {
+      font-weight: 600;
+      color: #1a1a2e;
+      min-width: 180px;
+    }
+
+    /* TAGS */
+    .tag-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .tag-blue   { background: #dbeafe; color: #1d4ed8; }
+    .tag-green  { background: #dcfce7; color: #166534; }
+    .tag-orange { background: #ffedd5; color: #c2410c; }
+    .tag-purple { background: #ede9fe; color: #6d28d9; }
+    .tag-gray   { background: #f1f5f9; color: #475569; }
+
+    /* BLOCS TABLE */
+    .blocs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .bloc-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #e1e8f0;
+    }
+
+    .bloc-card .bloc-header {
+      padding: 12px 16px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: white;
+    }
+
+    .bloc-card.b1 .bloc-header { background: #1d4ed8; }
+    .bloc-card.b2 .bloc-header { background: #0d9488; }
+    .bloc-card.b3 .bloc-header { background: #7c3aed; }
+
+    .bloc-card .bloc-sub {
+      padding: 4px 16px 10px;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.8);
+      background: inherit;
+    }
+
+    .bloc-card.b1 .bloc-sub { background: #1d4ed8; }
+    .bloc-card.b2 .bloc-sub { background: #0d9488; }
+    .bloc-card.b3 .bloc-sub { background: #7c3aed; }
+
+    .bloc-card .bloc-body {
+      padding: 14px 16px;
+    }
+
+    .competence-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      color: #374151;
+      line-height: 1.4;
+    }
+
+    .competence-item::before {
+      content: '✓';
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .bloc-card.b1 .competence-item::before { color: #1d4ed8; }
+    .bloc-card.b2 .competence-item::before { color: #0d9488; }
+    .bloc-card.b3 .competence-item::before { color: #7c3aed; }
+
+    /* ENV TECH */
+    .env-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .env-card {
+      background: white;
+      border: 1px solid #e1e8f0;
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    .env-card .env-icon {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    .env-card .env-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 3px;
+    }
+
+    .env-card .env-desc {
+      font-size: 0.7rem;
+      color: #8b949e;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #8b949e;
+      padding-top: 16px;
+      border-top: 1px solid #e1e8f0;
+    }
+
+    /* PRINT */
+    @media print {
+      body { background: white; padding: 20px; }
+      .header { border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Tableau de synthèse des compétences</h1>
+    <p>BTS Services Informatiques aux Organisations — Option SISR</p>
+    <p style="margin-top:6px;">Épreuve E4 — Support et mise à disposition de services informatiques</p>
+  </div>
+  <div class="badge-group">
+    <span class="badge">BTS SIO 2026</span>
+    <span class="badge">Option SISR</span>
+    <span class="badge badge-green">Unité U4</span>
+  </div>
+</div>
+
+<!-- IDENTITE -->
+<p class="section-title">Identité du candidat</p>
+<div class="identity-grid">
+  <div class="identity-card">
+    <div class="label">Nom & Prénom</div>
+    <div class="value">GAVERIAUX Rafael</div>
+  </div>
+  <div class="identity-card">
+    <div class="label">Établissement</div>
+    <div class="value">MyDigitalSchool</div>
+  </div>
+  <div class="identity-card">
+    <div class="label">Année</div>
+    <div class="value">2025 — 2026</div>
+  </div>
+</div>
+
+<!-- TABLEAU PRINCIPAL -->
+<p class="section-title">Situations professionnelles présentées</p>
+<div class="table-wrap">
+  <div class="table-header">Projet — Sécurisation d'un serveur Web Nginx sous Linux</div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Intitulé de la situation</th>
+        <th>Contexte</th>
+        <th>Environnement technique</th>
+        <th>Blocs de compétences</th>
+        <th>Période</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-num">1</td>
+        <td class="col-title">Installation et configuration d'un système Linux</td>
+        <td>Déploiement d'une VM Debian 13 sur Proxmox VE sans interface graphique pour réduire la surface d'attaque. Configuration du réseau en IP statique.</td>
+        <td>
+          <div class="tag-wrap">
+            <span class="tag tag-blue">Proxmox VE</span>
+            <span class="tag tag-gray">Debian 13</span>
+            <span class="tag tag-gray">ARM64</span>
+          </div>
+        </td>
+        <td>
+          <div class="tag-wrap">
+            <span class="tag tag-blue">Bloc 1 — U4</span>
+            <span class="tag tag-green">Bloc 2 — U5</span>
+          </div>
+        </td>
+        <td>2025 — 2026</td>
+      </tr>
+      <tr>
+        <td class="col-num">2</td>
+        <td class="col-title">Gestion des utilisateurs et droits d'accès</td>
+        <td>Création d'un utilisateur dédié avec droits sudo. Application du principe du moindre privilège : pas de travail en root, actions traçables via sudo.</td>
+        <td>
+          <div class="tag-wrap">
+            <span class="tag tag-gray">Debian 13</span>
+            <span class="tag tag-gray">Bash</span>
+            <span class="tag tag-orange">sudo / usermod</span>
+          </div>
+        </td>
+        <td>
+          <div class="tag-wrap">
+            <span class="tag tag-blue">Bloc 1 — U4</span>
+            <span class="tag tag-purple">Bloc 3</span>
+          </div>
+        </td>
+        <td>2025 — 2026</td>
+      </tr>
+      <tr>
+        <td class="col-num">3</td>
+        <td class="col-title">Sécurisation de l'accès SSH</td>
+        <td>Installation et configuration d'OpenSSH. Activation du service au démarrage. Test de connexion depuis le poste client macOS. Restriction de l'accès par adresse IP source via UFW.</td>
+        <td>
+          <div class="tag-wrap">
+            <span class="tag tag-gray">OpenSSH</span>
+            <span class="tag tag-orange">Port 22</span>
+            <span class="tag tag-gray">macOS client</span>
+          </div>
+        </td>
+        <td>
+          <div class="tag-wrap">
+            <span class="tag tag-blue">Bloc 1 — U4</span>
+            <span class="tag tag-green">Bloc 2 — U5</span>
+            <span class="tag tag-purple">Bloc 3</span>
+          </div>
+        </td>
+        <td>2025 — 2026</td>
+      </tr>
+      <tr>
+        <td class="col-num">4</td>
+        <td class="col-title">Configuration du pare-feu UFW</td>
+        <td>Mise en place d'une politique "deny all incoming, allow by exception". Autorisation des seuls ports nécessaires : SSH (22) et HTTP (80). Test de blocage depuis une IP non autorisée.</td>
+        <td>
+          <div class="tag-wrap">
+            <span class="tag tag-orange">UFW</span>
+            <span class="tag tag-gray">iptables</span>
+            <span class="tag tag-orange">Port 22 / 80</span>
+          </div>
+        </td>
+        <td>
+          <div class="tag-wrap">
+            <span class="tag tag-green">Bloc 2 — U5</span>
+            <span class="tag tag-purple">Bloc 3</span>
+          </div>
+        </td>
+        <td>2025 — 2026</td>
+      </tr>
+      <tr>
+        <td class="col-num">5</td>
+        <td class="col-title">Déploiement et mise à disposition du service Web Nginx</td>
+        <td>Installation, configuration et activation au démarrage de Nginx. Test d'accès HTTP depuis le réseau local. Validation du fonctionnement de l'infrastructure complète.</td>
+        <td>
+          <div class="tag-wrap">
+            <span class="tag tag-blue">Nginx</span>
+            <span class="tag tag-orange">HTTP / Port 80</span>
+            <span class="tag tag-gray">LAN 192.168.1.0/24</span>
+          </div>
+        </td>
+        <td>
+          <div class="tag-wrap">
+            <span class="tag tag-blue">Bloc 1 — U4</span>
+            <span class="tag tag-green">Bloc 2 — U5</span>
+          </div>
+        </td>
+        <td>2025 — 2026</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- BLOCS DE COMPETENCES -->
+<p class="section-title">Compétences couvertes par bloc</p>
+<div class="blocs-grid">
+
+  <div class="bloc-card b1">
+    <div class="bloc-header">Bloc 1 — Unité U4</div>
+    <div class="bloc-sub">Support et mise à disposition de services informatiques</div>
+    <div class="bloc-body">
+      <div class="competence-item">Gérer le patrimoine informatique (VM, services, configuration)</div>
+      <div class="competence-item">Mettre à disposition un service informatique (Nginx HTTP)</div>
+      <div class="competence-item">Répondre aux incidents — diagnostic et résolution de problème</div>
+      <div class="competence-item">Travailler en mode projet — documentation, schémas, versioning</div>
+      <div class="competence-item">Gestion des utilisateurs, habilitations et droits d'accès</div>
+      <div class="competence-item">Techniques et outils de déploiement et de test des services</div>
+    </div>
+  </div>
+
+  <div class="bloc-card b2">
+    <div class="bloc-header">Bloc 2 — Unité U5 SISR</div>
+    <div class="bloc-sub">Administration des systèmes et des réseaux</div>
+    <div class="bloc-body">
+      <div class="competence-item">Concevoir une solution d'infrastructure réseau (LAN, IP statique)</div>
+      <div class="competence-item">Installer, tester et déployer une solution d'infrastructure</div>
+      <div class="competence-item">Exploiter, dépanner et superviser une solution réseau</div>
+      <div class="competence-item">Adressage IP, routage, passerelle, DNS</div>
+      <div class="competence-item">Administration système Linux en ligne de commande</div>
+      <div class="competence-item">Configuration et gestion des services réseau</div>
+    </div>
+  </div>
+
+  <div class="bloc-card b3">
+    <div class="bloc-header">Bloc 3 — Cybersécurité</div>
+    <div class="bloc-sub">Sécurité des infrastructures et des services</div>
+    <div class="bloc-body">
+      <div class="competence-item">Triade CIA — Confidentialité, Intégrité, Disponibilité</div>
+      <div class="competence-item">Authentification et gestion des privilèges utilisateurs</div>
+      <div class="competence-item">Sécurité des communications — SSH chiffré (vs Telnet)</div>
+      <div class="competence-item">Filtrage réseau — pare-feu UFW, règles "deny all"</div>
+      <div class="competence-item">Principe du moindre privilège — sudo vs root</div>
+      <div class="competence-item">Sûreté des infrastructures — bonnes pratiques Linux</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ENVIRONNEMENT TECHNIQUE -->
+<p class="section-title">Environnement technique global</p>
+<div class="env-grid">
+  <div class="env-card">
+    <div class="env-icon">🖥️</div>
+    <div class="env-name">Proxmox VE</div>
+    <div class="env-desc">Hyperviseur bare-metal hébergeant la VM</div>
+  </div>
+  <div class="env-card">
+    <div class="env-icon">🐧</div>
+    <div class="env-name">Debian 13</div>
+    <div class="env-desc">OS serveur sans GUI — ARM64</div>
+  </div>
+  <div class="env-card">
+    <div class="env-icon">🌐</div>
+    <div class="env-name">Nginx</div>
+    <div class="env-desc">Serveur Web HTTP — port 80</div>
+  </div>
+  <div class="env-card">
+    <div class="env-icon">🔒</div>
+    <div class="env-name">OpenSSH</div>
+    <div class="env-desc">Accès distant chiffré — port 22</div>
+  </div>
+  <div class="env-card">
+    <div class="env-icon">🛡️</div>
+    <div class="env-name">UFW</div>
+    <div class="env-desc">Pare-feu — filtrage des ports</div>
+  </div>
+  <div class="env-card">
+    <div class="env-icon">🍎</div>
+    <div class="env-name">macOS</div>
+    <div class="env-desc">Poste client — SSH + tests HTTP</div>
+  </div>
+  <div class="env-card">
+    <div class="env-icon">🌍</div>
+    <div class="env-name">LAN</div>
+    <div class="env-desc">Réseau local 192.168.1.0/24</div>
+  </div>
+  <div class="env-card">
+    <div class="env-icon">📁</div>
+    <div class="env-name">GitHub</div>
+    <div class="env-desc">Versioning et portfolio</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Rafael GAVERIAUX — BTS SIO Option SISR — MyDigitalSchool 2026
+</div>
+
+</body>
+</html>

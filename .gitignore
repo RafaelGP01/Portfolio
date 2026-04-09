@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Diaporama
+presentation/
+
+# Fichiers sources de diagrammes
+docs/diagrams/Infra_schema.drawio
