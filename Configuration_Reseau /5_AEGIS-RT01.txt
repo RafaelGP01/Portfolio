@@ -1,0 +1,98 @@
+! ================================================================
+! AEGIS-RT01 - Cisco 2911 - Routeur de bordure (NAT/PAT, ACL WAN)
+! A coller apres "enable", bloc par bloc.
+! Regle : un "!" n'est un commentaire QU'EN DEBUT DE LIGNE.
+! ================================================================
+configure terminal
+hostname AEGIS-RT01
+no ip domain-lookup
+ip domain-name aegis-capital.local
+service password-encryption
+service timestamps log datetime msec
+enable secret Aeg1s#En@ble26
+username admin-net privilege 15 secret Aeg1s#Adm1n26
+banner motd #Acces reserve au personnel autorise d'Aegis Capital. Connexions journalisees.#
+no ip http server
+!
+! --- SSH v2 ---
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+login block-for 120 attempts 3 within 60
+!
+! --- Lien route vers le coeur ---
+interface GigabitEthernet0/2
+ description Transit vers AEGIS-CORE-SW01 Gi1/0/24
+ ip address 10.0.0.2 255.255.255.252
+ ip nat inside
+ no shutdown
+ exit
+!
+! --- WAN vers le FAI ---
+interface GigabitEthernet0/0
+ description WAN vers FAI
+ ip address 203.0.113.2 255.255.255.252
+ ip nat outside
+ no cdp enable
+ no shutdown
+ exit
+!
+! --- Routage ---
+ip route 0.0.0.0 0.0.0.0 203.0.113.1
+ip route 172.16.0.0 255.255.0.0 10.0.0.1
+!
+! --- NAT : PAT pour l'interne + publication de WEB01 (80/443) ---
+access-list 1 permit 172.16.0.0 0.0.255.255
+ip nat inside source list 1 interface GigabitEthernet0/0 overload
+ip nat inside source static tcp 172.16.40.10 80 203.0.113.2 80
+ip nat inside source static tcp 172.16.40.10 443 203.0.113.2 443
+!
+! --- Acces admin limite au VLAN 10 ---
+access-list 10 permit 172.16.10.0 0.0.0.255
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+line vty 0 4
+ login local
+ transport input ssh
+ access-class 10 in
+ exec-timeout 10 0
+ exit
+!
+! --- Journaux, heure, supervision ---
+logging host 172.16.10.10
+logging trap informational
+ntp server 172.16.20.10
+snmp-server community Aeg1sRO RO
+end
+write memory
+!
+! ===== ETAPE 2 : ACL WAN (apres avoir teste l'acces Internet) =====
+configure terminal
+ip access-list extended ACL_WAN_IN
+ permit tcp any host 203.0.113.2 eq 80
+ permit tcp any host 203.0.113.2 eq 443
+ permit tcp any any established
+ permit udp any eq 53 any
+ permit udp any eq 123 any
+ permit icmp any any echo-reply
+ permit icmp any any unreachable
+ permit icmp any any time-exceeded
+ deny ip any any
+ exit
+interface GigabitEthernet0/0
+ ip access-group ACL_WAN_IN in
+ exit
+!
+! --- Analyse du trafic : NetFlow vers SIEM01 (ignore si ta version PT refuse) ---
+interface GigabitEthernet0/0
+ ip flow ingress
+ ip flow egress
+ exit
+ip flow-export destination 172.16.10.10 2055
+ip flow-export version 9
+end
+write memory

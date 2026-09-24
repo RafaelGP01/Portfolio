@@ -1,0 +1,103 @@
+! ================================================================
+! AEGIS-SW03 - Cisco 2960-24TT - Switch d'acces DMZ
+! A coller apres "enable", bloc par bloc.
+! Regle : un "!" n'est un commentaire QU'EN DEBUT DE LIGNE.
+! ================================================================
+configure terminal
+hostname AEGIS-SW03
+no ip domain-lookup
+ip domain-name aegis-capital.local
+service password-encryption
+service timestamps log datetime msec
+enable secret Aeg1s#En@ble26
+username admin-net privilege 15 secret Aeg1s#Adm1n26
+banner motd #Acces reserve au personnel autorise d'Aegis Capital. Connexions journalisees.#
+vtp mode transparent
+spanning-tree mode rapid-pvst
+!
+vlan 40
+ name DMZ
+vlan 99
+ name GESTION-RESEAU
+vlan 999
+ name PARKING
+ exit
+!
+! --- Uplink trunk vers le coeur ---
+interface GigabitEthernet0/1
+ description Trunk vers AEGIS-CORE-SW01 Gi1/0/3
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 40,99
+ switchport nonegotiate
+ no shutdown
+ exit
+!
+! --- Ports d'acces VLAN 40 ---
+interface range FastEthernet0/1 - 2
+ switchport mode access
+ switchport access vlan 40
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security mac-address sticky
+ switchport port-security violation restrict
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+ exit
+interface FastEthernet0/1
+ description AEGIS-WEB01
+ exit
+interface FastEthernet0/2
+ description AEGIS-APP01
+ exit
+!
+! --- Ports inutilises (parking + shutdown) ---
+interface range FastEthernet0/3 - 24
+ description INUTILISE
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+ exit
+interface GigabitEthernet0/2
+ description INUTILISE
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+ exit
+!
+! --- Gestion (VLAN 99) ---
+interface Vlan1
+ shutdown
+ exit
+interface Vlan99
+ description Gestion AEGIS-SW03
+ ip address 172.16.99.13 255.255.255.0
+ no shutdown
+ exit
+ip default-gateway 172.16.99.254
+!
+! --- SSH v2, acces admin limite au VLAN 10 ---
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+access-list 10 permit 172.16.10.0 0.0.0.255
+line console 0
+ login local
+ exec-timeout 10 0
+ logging synchronous
+ exit
+line vty 0 15
+ login local
+ transport input ssh
+ access-class 10 in
+ exec-timeout 10 0
+ exit
+!
+! --- Journaux et heure ---
+! Si "logging host" est refuse : logging 172.16.10.10
+! Si "ntp server" est refuse sur ce modele PT : ignore
+logging host 172.16.10.10
+ntp server 172.16.20.10
+snmp-server community Aeg1sRO RO
+end
+write memory
